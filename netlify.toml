@@ -1,12 +1,17 @@
 [build]
   publish = "/"
 
+# Ana sayfadan hacker-loading.html'e yönlendirme
+[[redirects]]
+  from = "/"
+  to = "/hacker-loading.html"
+  status = 200
+
+# Tüm 404'leri hacker-loading.html'e yönlendir
 [[redirects]]
   from = "/*"
   to = "/hacker-loading.html"
-  status = 200
-  force = false
-  conditions = {Role = ["anonymous"]}
+  status = 404
 
 [build.environment]
   NODE_VERSION = "16"
