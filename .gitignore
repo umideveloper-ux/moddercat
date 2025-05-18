@@ -1,0 +1,38 @@
+# Sistem dosyaları
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editör dosyaları
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Geçici dosyalar
+*.log
+*.tmp
+*.temp
+
+# Netlify
+.netlify/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+
+# Build klasörleri
+/dist
+/build
+/out
+
+# Çevre değişkenleri
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
