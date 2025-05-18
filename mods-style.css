@@ -1,0 +1,320 @@
+body {
+    background-color: #0D0D0D; /* Koyu gri, neredeyse siyah */
+    color: #00FF00; /* Hacker yeşili */
+    font-family: 'VT323', monospace;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column; /* İçeriğin dikeyde sıralanması için */
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.container {
+    background-color: rgba(10, 25, 10, 0.85); /* Yarı saydam koyu yeşilimsi */
+    padding: 20px 40px;
+    border-radius: 8px;
+    border: 1px solid #00FF00;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5), inset 0 0 10px rgba(0, 255, 0, 0.3);
+    max-width: 900px;
+    width: 95%;
+}
+
+h1 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 2.8em;
+    color: #FFD700; /* Altın sarısı bir vurgu */
+    text-shadow: 0 0 8px #FFD700;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.sub-text {
+    font-size: 1.3em;
+    color: #b0b0b0; /* Açık gri */
+    margin-bottom: 30px;
+    font-style: italic;
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+.mod-list h2 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 2em;
+    color: #00FF00;
+    border-bottom: 1px dashed #00FF00;
+    padding-bottom: 10px;
+    margin-top: 40px;
+    margin-bottom: 25px;
+}
+
+.mod-category {
+    margin-bottom: 35px;
+    text-align: left;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 5px;
+    border-left: 3px solid #FFD700;
+}
+
+.mod-category h3 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 1.6em;
+    color: #33FFFF; /* Canlı bir mavi */
+    margin-bottom: 15px;
+}
+
+.mod-category ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.mod-category ul li {
+    margin-bottom: 12px;
+    font-size: 1.25em;
+}
+
+.mod-category ul li a {
+    color: #00FF00;
+    text-decoration: none;
+    transition: color 0.2s, text-shadow 0.2s;
+}
+
+.mod-category ul li a:hover,
+.mod-category ul li a:focus {
+    color: #FFFFFF;
+    text-shadow: 0 0 5px #FFFFFF, 0 0 10px #00FF00;
+    animation: textFlicker 0.05s infinite alternate;
+}
+
+@keyframes textFlicker {
+    from {
+        transform: translate(1px, 1px) rotate(0.5deg);
+        opacity: 0.95;
+    }
+    to {
+        transform: translate(-1px, -1px) rotate(-0.5deg);
+        opacity: 1;
+    }
+}
+
+.footer-text {
+    margin-top: 40px;
+    font-size: 1.1em;
+    color: #b0b0b0;
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+.cat-icon-footer img {
+    width: 60px;
+    height: auto;
+    margin-top: 15px;
+    filter: drop-shadow(0 0 8px #00FF00);
+    transition: transform 0.3s ease-in-out;
+}
+
+.cat-icon-footer img:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Scrollbar stilleri (isteğe bağlı, temaya uygun) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #0D0D0D;
+}
+::-webkit-scrollbar-thumb {
+    background: #00FF00;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #FFD700;
+}
+
+/* Üst Butonlar için Genel Kapsayıcı */
+#topButtonsContainer {
+    position: absolute;
+    top: 20px;
+    left: 20px; /* Soldaki buton için başlangıç noktası */
+    right: 20px; /* Sağdaki buton için bitiş noktası */
+    width: calc(100% - 40px); /* Kenar boşluklarını hesaba kat */
+    display: flex;
+    justify-content: space-between; /* Butonları iki uca yasla */
+    z-index: 1000;
+    pointer-events: none; /* Kapsayıcının tıklamaları engellememesi için */
+}
+
+#topButtonsContainer > div {
+    pointer-events: auto; /* Butonların kendisi tıklanabilir olsun */
+}
+
+/* Mod Kaldırma Talebi Bölümü (Sağda) - Konumlandırma düzenlemesi */
+#modRemovalSection {
+    /* position: absolute; kaldırıldı, #topButtonsContainer yönetecek */
+    /* top: 20px; kaldırıldı */
+    /* right: 20px; kaldırıldı */
+    /* z-index: 1000; kaldırıldı, #topButtonsContainer yönetecek */
+}
+
+/* Mod Paylaşma Paneli Bölümü (Solda) */
+#modSharingSection {
+    /* Benzer şekilde konumlandırma #topButtonsContainer tarafından yönetilecek */
+}
+
+#modRemovalButton,
+#modSharingButton {
+    color: #FFFFFF;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 0.9em;
+    padding: 8px 15px;
+    border: 2px solid #FFD700; /* Altın sarısı kenarlık */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#modRemovalButton {
+    background-color: #FF4500; /* Dikkat çekici bir renk (turuncu-kırmızı) */
+    box-shadow: 0 0 10px rgba(255, 69, 0, 0.7);
+}
+
+#modRemovalButton:hover {
+    background-color: #FF6347;
+    transform: scale(1.05);
+}
+
+#modSharingButton {
+    background-color: #4CAF50; /* Farklı bir dikkat çekici renk (örn: yeşil) */
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
+}
+
+#modSharingButton:hover {
+    background-color: #66BB6A;
+    transform: scale(1.05);
+}
+
+/* Popup Mesaj Kutusu (Genel) */
+.popup-overlay { /* Eski #modRemovalMessagePopup seçicisi genelleştirildi */
+    display: none; /* Başlangıçta gizli */
+    position: fixed; /* Tüm sayfanın üzerinde */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Yarı saydam siyah arka plan */
+    justify-content: center;
+    align-items: center;
+    z-index: 1001; /* Butonun da üzerinde */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.popup-content {
+    background-color: #1A1A1A; /* Koyu bir arka plan */
+    color: #00FF00; /* Hacker yeşili */
+    padding: 30px;
+    border-radius: 8px;
+    border: 2px solid #FFD700; /* Altın sarısı kenarlık */
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+    max-width: 650px;
+    width: 90%;
+    text-align: left;
+    font-family: 'VT323', monospace;
+    font-size: 1.25em; /* Değişiklik: 1.1em -> 1.25em */
+    position: relative; /* Kapatma butonu için */
+    max-height: 80vh; /* Ekran yüksekliğinin %80'i */
+    overflow-y: auto; /* İçerik taşarsa scroll bar çıksın */
+}
+
+.popup-content a {
+    color: #33FFFF; /* Linkler için canlı mavi */
+    text-decoration: underline;
+}
+
+.popup-content a:hover {
+    color: #FFFFFF;
+}
+
+.popup-content code {
+    background-color: #333;
+    color: #FFD700;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: 'VT323', monospace;
+}
+
+.popup-content h2 {
+    font-family: 'Chakra Petch', sans-serif;
+    color: #FFD700;
+    text-align: center;
+    margin-top: 0;
+    font-size: 2em; /* Değişiklik: 1.8em -> 2em */
+}
+
+.popup-content strong {
+    color: #FF4500; /* Kırmızımsı bir vurgu */
+}
+
+.popup-content ul {
+    list-style-type: none; /* Varsayılan madde işaretlerini kaldır */
+    padding-left: 0;
+}
+
+.popup-content ul li {
+    margin-bottom: 10px;
+    padding-left: 25px; /* Pati için biraz daha yer */
+    position: relative;
+    font-size: 1em; /* Ana .popup-content font boyutuna göre (1.25em * 1em) */
+    line-height: 1.5; /* Satır yüksekliği eklendi */
+}
+
+.popup-content ul li::before {
+    content: "🐾"; /* Kedi patisi madde işareti */
+    position: absolute;
+    left: 0;
+    top: 0px; /* Dikey hizalama ayarlandı */
+    color: #FFD700; /* Altın sarısı */
+}
+
+.popup-content p {
+    line-height: 1.7; /* Değişiklik: 1.6 -> 1.7, ve font-size ana gövdeden miras alır */
+    margin-bottom: 12px; /* Paragraflar arası boşluk biraz arttı */
+}
+
+.close-popup-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2em;
+    color: #FFD700;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.close-popup-button:hover {
+    transform: scale(1.2);
+    color: #FFFFFF;
+}
+
+#acknowledgeRemovalButton, 
+#acknowledgeSharingButton { /* Ortak stil için birleştirildi */
+    background-color: #00FF00; /* Hacker yeşili */
+    color: #0D0D0D; /* Koyu yazı */
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 1.1em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#acknowledgeRemovalButton:hover, 
+#acknowledgeSharingButton:hover { /* Ortak stil için birleştirildi */
+    background-color: #FFD700; /* Altın sarısı */
+    color: #000000;
+}

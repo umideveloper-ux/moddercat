@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Mods Access - Loading...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&family=Pricedown&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            font-family: 'Chakra Petch', sans-serif;
+            color: #00ccff;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            perspective: 1000px;
+            background-image: url('https://i.imgur.com/JYeUFzX.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-blend-mode: overlay;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid #00ccff;
+            box-shadow: 0 0 20px rgba(0, 204, 255, 0.5);
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .loading-text {
+            font-family: 'Pricedown', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00ccff, 0 0 20px #00ccff;
+            animation: pulse 1.5s infinite;
+            color: #ffcc00;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 30px;
+            background-color: #111;
+            border: 2px solid #00ccff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 10px #00ccff;
+        }
+
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #00ccff, #ff00ff, #ffcc00, #00ff00);
+            background-size: 300% 100%;
+            animation: progressBarAnimation 2s linear infinite, colorCycle 10s linear infinite;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            transition: width 0.1s ease-out;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 0, 0.03) 2px,
+                rgba(0, 255, 0, 0.03) 3px
+            );
+            border-top: 1px solid rgba(0, 255, 0, 0.2);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .glitch-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(0, 204, 255, 0.2),
+                rgba(0, 204, 255, 0.2) 10px,
+                rgba(0, 0, 0, 0.3) 10px,
+                rgba(0, 0, 0, 0.3) 20px
+            );
+            opacity: 0.3;
+            animation: glitch 0.2s infinite;
+        }
+
+        .percentage {
+            font-size: 1.5rem;
+            margin-top: 15px;
+            text-shadow: 0 0 5px #00ccff;
+            font-family: 'Chakra Petch', sans-serif;
+            font-weight: bold;
+        }
+
+        .status-text {
+            margin-top: 20px;
+            font-size: 1rem;
+            height: 60px;
+            overflow: hidden;
+            color: #ffffff;
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        .binary-stream {
+            position: absolute;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            width: 100%;
+            text-align: left;
+            height: 100px;
+            overflow: hidden;
+            margin-top: 20px;
+            color: #00ccff;
+        }
+        
+        .mods-unlocked-counter {
+            font-family: 'Pricedown', sans-serif;
+            color: #7FFF00;
+            font-size: 2rem;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .hacker-icon {
+            width: 100px; /* Increased from 60px */
+            margin-bottom: 20px;
+            display: block; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hacker-icon img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .anonymity-level {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .anonymity-text {
+            font-family: 'Chakra Petch', sans-serif;
+            color: #00ccff;
+            font-size: 1rem;
+            margin-right: 10px;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .shield-icon {
+            color: #ffcc00;
+            font-size: 1.5rem;
+            margin-right: 5px;
+            text-shadow: 2px 2px 4px #000;
+            transition: color 0.5s;
+        }
+
+        .flicker {
+            animation: flicker 0.1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        @keyframes glitch {
+            0% { transform: translateX(-10px); }
+            25% { transform: translateX(10px); }
+            50% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .loading-text {
+                font-size: 1.5rem; 
+                line-height: 1.4;
+                margin-bottom: 15px;
+            }
+            .container {
+                padding: 15px; 
+                width: 95%;
+            }
+            .mods-unlocked-counter, 
+            .anonymity-level {
+                font-size: 0.8rem; 
+                padding: 5px;
+            }
+            .progress-container {
+                height: 20px; 
+            }
+            .percentage {
+                font-size: 1rem;
+            }
+            .status-text {
+                font-size: 0.9rem;
+            }
+            .hacker-icon img {
+                width: 60px; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .loading-text {
+                font-size: 1.2rem;
+            }
+            .mods-unlocked-counter, 
+            .anonymity-level {
+                font-size: 0.7rem;
+            }
+             .hacker-icon img {
+                width: 50px;
+            }
+            .status-text {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas" class="matrix-bg"></canvas>
+    <div class="anonymity-level" id="anonymityLevelContainer">
+        <div class="anonymity-text">ANONİMLİK:</div>
+        <div class="shield-icon">🛡️</div>
+        <div class="shield-icon">🛡️</div>
+    </div>
+    <div class="mods-unlocked-counter" id="modsCounter">MODLAR: 0</div>
+    <div class="container">
+        <div class="hacker-icon"><img src="cat.png" alt="Hacker Kedi"></div>
+        <div class="loading-text" id="loadingText">BU BİR YÜKLEME EKRANI MI YOKSA KEDİNİN DÜNYA HAKİMİYETİ PLANI MI? (OPERASYON: ÖNCE MODLAR, SONRA DÜNYA!)</div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar">
+                <div class="glitch-effect"></div>
+            </div>
+        </div>
+        <div class="percentage" id="percentage">0%</div>
+        <div class="status-text" id="statusText"></div>
+        <div class="binary-stream" id="binaryStream"></div>
+    </div>
+
+    <script>
+        // Matrix background effect
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        // Kedi maması sembolü
+        const catSymbols = ['●']; // Eskiden kedi temalı emojiler ve kelimeler vardı
+        const fontSize = 16;
+        const columns = canvas.width / fontSize; // number of columns for the rain
+        // an array of drops - one per column
+        const rainDrops = [];
+        for (let i = 0; i < columns; i++) {
+            rainDrops[i] = Math.floor(Math.random() * canvas.height / fontSize);
+        }
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Değişiklik: 0.05 -> 0.1 (daha hızlı silinme)
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Yağan mamaların rengi
+            ctx.fillStyle = '#A0522D'; // Kahverengi (eski renk: #00ccff)
+            ctx.font = fontSize + 'px monospace';
+            
+            for(let i = 0; i < rainDrops.length; i++) {
+                // Kedi maması sembolünü seç (dizide tek eleman olduğu için hep o seçilecek)
+                const text = catSymbols[Math.floor(Math.random() * catSymbols.length)];
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+                
+                //sending the drop back to the top randomly after it has crossed the screen
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                
+                rainDrops[i]++;
+            }
+        }
+        
+        // Loading progress simulation
+        const progressBar = document.getElementById('progressBar');
+        const percentage = document.getElementById('percentage');
+        const statusText = document.getElementById('statusText');
+        const binaryStream = document.getElementById('binaryStream');
+        const loadingText = document.getElementById('loadingText');
+        
+        const statusMessages_phase1 = [
+            "Mod erişim ücretleri: Bir adet gülümseme + KDV (%18 Hayal Gücü Vergisi). Fatura e-ruhunuza gönderilecektir.",
+            "Her mod için benzersiz bir 'Schrödinger\'in Lisansı' oluşturuluyor (aynı anda hem var hem de yok, ta ki siz tıklayana kadar).",
+            "Sunucudaki tek ve son derece önemli patatesin voltajı optimize ediliyor. (Bu sunucu tamamen patatesle çalışıyor)."
+        ];
+
+        const statusMessages_phase2 = [
+            "Patates sunucu hala ayakta! Ama sanırım kedi yüzünden tüm modları bedava yapmaya karar verdi. Kediler işte...",
+            "Bu bir yükleme ekranı mı yoksa interaktif bir stand-up gösterisi mi? Karar sizin (ama modlar kesinlikle bedava)."
+        ];
+        
+        const anonymityLevelContainer = document.getElementById('anonymityLevelContainer');
+        const modsCounterEl = document.getElementById('modsCounter');
+        const shieldIcons = anonymityLevelContainer.querySelectorAll('.shield-icon');
+        
+        let progress = 0;
+        let currentStatusIndex = 0;
+        let phase1_complete = false;
+
+        function updateBinaryStream() {
+            let binary = '';
+            for (let i = 0; i < 200; i++) {
+                binary += Math.floor(Math.random() * 2);
+            }
+            binaryStream.textContent = binary;
+        }
+        
+        function simulateLoading() {
+            if (progress < 100) {
+                progress += Math.floor(Math.random() * 2) + 1; // Slower progress for more text
+                if (progress > 100) progress = 100;
+                
+                progressBar.style.width = `${progress}%`;
+                percentage.textContent = `${progress}%`;
+                
+                // Update loading text based on phase
+                if (progress > 0) { // Initial text for phase 1 or phase 2 title
+                    loadingText.textContent = phase1_complete ? 
+                        "YÜKLEME ÇUBUĞU ASLINDA SADECE GÖRSEL BİR EFEKT... AMA KEDİ GERÇEKTEN ÇALIŞIYOR! (AŞAMA 2: İNANIN BİZE!)" :
+                        "BU BİR YÜKLEME EKRANI MI YOKSA KEDİNİN DÜNYA HAKİMİYETİ PLANI MI? (OPERASYON: ÖNCE MODLAR, SONRA DÜNYA!)";
+                }
+                
+                // Update status message
+                let currentMessages = phase1_complete ? statusMessages_phase2 : statusMessages_phase1;
+                
+                let display_threshold;
+                if (phase1_complete) {
+                    // Phase 2 messages: start from progress 50.
+                    // Spread 2 messages over ~50 progress points (50 to ~98). Approx 25 progress points per message.
+                    display_threshold = 50 + (currentStatusIndex * 25); // (50 / 2 messages = 25)
+                } else {
+                    // Phase 1 messages: start from progress 0.
+                    // Spread 3 messages up to progress 50. Approx 16-17 progress points per message.
+                    display_threshold = currentStatusIndex * 16; // (50 / 3 messages = ~16.6)
+                }
+
+                // Display new message if progress has passed the threshold for the current message index
+                if (currentStatusIndex < currentMessages.length && progress >= display_threshold) {
+                    statusText.innerHTML = `<div>${currentMessages[currentStatusIndex]}</div>`; // Changed from += to = to display one message at a time
+                    // statusText.scrollTop = statusText.scrollHeight; // Removed as no longer needed
+                    currentStatusIndex++;
+                }
+                
+                // Add glitch effect randomly
+                if (Math.random() > 0.9) {
+                    loadingText.classList.add('flicker');
+                    setTimeout(() => {
+                        loadingText.classList.remove('flicker');
+                    }, 200);
+                }
+                
+                updateBinaryStream();
+                
+                // Change loading text at certain points
+                if (progress > 50 && !phase1_complete) {
+                    phase1_complete = true;
+                    currentStatusIndex = 0; // Reset for phase 2 messages
+                } else if (progress > 80 && phase1_complete) {
+                }
+
+                // Update anonymity level (shields turning green)
+                const activeShields = Math.floor((progress / 100) * shieldIcons.length);
+                shieldIcons.forEach((shield, index) => {
+                    if (index < activeShields) {
+                        shield.style.color = '#7FFF00';
+                    } else {
+                        shield.style.color = '#ffcc00';
+                    }
+                });
+
+                // Update mods counter
+                const modsUnlocked = Math.floor((progress / 100) * 1337); // Example: max 1337 mods for l33t speak
+                modsCounterEl.textContent = 'MODLAR: ' + modsUnlocked;
+                
+                setTimeout(simulateLoading, 400); // Increased from 250ms to slow down overall animation 
+            } else {
+                loadingText.textContent = "İŞLEM TAMAM! EN AZINDAN BİZ ÖYLE UMUYORUZ. BU KADAR KODUN ARASINDA BİR ŞEYLERİN ÇALIŞMASINA BİLE ŞAŞIRDIK. MODLARINIZ HAZIR!";
+                progressBar.style.width = '100%';
+                percentage.textContent = '100%';
+                shieldIcons.forEach(shield => shield.style.color = '#7FFF00');
+                modsCounterEl.textContent = 'MODLAR: KEDİ SAYDI, BİZE SÖYLEMEDİ!';
+                updateBinaryStream();
+                setTimeout(() => {
+                    window.location.href = 'mods.html';
+                }, 5000); // Değişiklik: 3000 -> 5000
+            }
+        }
+        
+        // Start animations
+        setInterval(drawMatrix, 50); // Değişiklik: 30 -> 50 (daha yavaş animasyon)
+        simulateLoading();
+        setInterval(updateBinaryStream, 100);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
